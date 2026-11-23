@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Table</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #eef2f7;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            width: 100%;
+            background-color: rgb(12, 12, 123);
+            color: #ebe9f4;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+        h1 {
+            margin: 0;
+            font-size: 36px;
+        }
+        .logo {
+            margin-right:1080px;
+            width: 350px;
+            height: auto;
+            margin-top:20px;
+            display: block;
+        }
+        #studentForm {
+            margin-top: 40px; /* Add some space between the logo and the form */
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.8);
+            display: inline-block;
+            padding: 20px;
+            border: 2px solid #ffffff;
+            border-radius: 10px;
+        }
+        #studentForm label {
+            font-size: 20px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        #studentForm input {
+            font-size: 18px;
+            padding: 5px;
+            width: 200px;
+        }
+        #studentForm button {
+            font-size: 18px;
+            padding: 5px 10px;
+            background-color: green;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 200px;
+        }
+        #studentForm button:hover {
+            background-color: darkgreen;
+        }
+        #timetable {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-top: 20px;
+        }
+        table {
+            background-color: rgba(255, 255, 255, 0.65);
+            width: 80%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+            vertical-align: middle;
+        }
+        th {
+            background-color: #ffffff;
+        }
+        .doctor-name {
+            display: block;
+            margin-top: 8px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>TIME TABLE</h1>
+    </header>
+    <p>Coursework demo with synthetic records only. Not for real course allocation.</p>
+    <form id="studentForm">
+        <label for="student_id">Enter Student ID:</label>
+        <input type="text" id="student_id" name="student_id" required>
+        <button type="submit">Generate Timetable</button>
+    </form>
+    <div id="timetable"></div>
+
+    <script>
+        document.getElementById("studentForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent default form submission
+            var studentId = document.getElementById("student_id").value;
+            fetch("/generate_timetable", {
+                method: "POST",
+                body: JSON.stringify({ student_id: studentId }),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("timetable").innerHTML = data.html_content;
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
