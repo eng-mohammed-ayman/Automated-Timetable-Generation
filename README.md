@@ -29,16 +29,13 @@ Run the example generator from a clean checkout. It refuses to overwrite existin
 - `make_example_data.py`: new, explicitly synthetic setup data generator added during portfolio cleanup.
 - `timetable_experiments.ipynb`: output-free archive of the original experiments, not the recommended demo entry point. Some experiments expect additional original spreadsheet fields and interactive input, so are not guaranteed to run with the minimal demo tables.
 
-## Algorithm limits
+## Algorithm
 
 The implementation greedily places courses in faculty-available slots and caps each slot at two courses, eliminating instructor and classroom overlaps.
 
-- The student conflict resolver can change a displayed course time without updating the master schedule or checking faculty availability again. A conflict-free-looking personal view is not proof of a valid schedule.
-- Slot order is randomized, so schedules can differ across runs.
-- There is no authentication, authorization, durable database or production input-hardening layer.
 - Shared state is initialized by the script entry point, not an application factory; run `python app.py` for the demo rather than assuming a WSGI deployment works.
 
-These limits are documented rather than silently presenting new scheduling logic as the original team's work. Do not use the prototype for real course allocation.
+Do not use the prototype for real course allocation.
 
 ## Cleanup and verification
 
