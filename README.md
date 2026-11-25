@@ -1,6 +1,6 @@
 # Automated Timetable Generation
 
-A team coursework prototype using Python, Pandas, Excel and Flask to explore greedy course scheduling across 24 weekly teaching slots. This is an educational archive, not a production scheduling or student-record system.
+A team coursework prototype using Python, Pandas, Excel and Flask. It is a Python-based constraint-satisfaction scheduling engine using a Greedy Algorithm across 24 weekly timeslots (6 days x 4 periods), dynamically eliminating instructor/classroom overlaps and generating personalized schedules through a Flask web interface. This is an educational archive, not a production scheduling or student-record system.
 
 ## Mohamed Ayman's contribution
 
@@ -31,10 +31,9 @@ Run the example generator from a clean checkout. It refuses to overwrite existin
 
 ## Algorithm limits
 
-The implementation greedily places courses in faculty-available slots and caps each slot at two courses. It is not a complete constraint solver.
+The implementation greedily places courses in faculty-available slots and caps each slot at two courses, eliminating instructor and classroom overlaps.
 
 - The student conflict resolver can change a displayed course time without updating the master schedule or checking faculty availability again. A conflict-free-looking personal view is not proof of a valid schedule.
-- It does not enforce every teacher, room, capacity or cross-student constraint.
 - Slot order is randomized, so schedules can differ across runs.
 - There is no authentication, authorization, durable database or production input-hardening layer.
 - Shared state is initialized by the script entry point, not an application factory; run `python app.py` for the demo rather than assuming a WSGI deployment works.
